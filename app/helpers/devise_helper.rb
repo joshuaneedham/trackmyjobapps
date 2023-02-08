@@ -52,4 +52,4 @@ module DeviseHelper
       html.html_safe
     end
   end
-  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+ 
