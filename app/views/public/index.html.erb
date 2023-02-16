@@ -1,7 +1,11 @@
 <% content_for :title, "Home" %>
 <% if current_user %>
 <h1>Welcome to TrackMyJobApps.com <%= current_user.email %></h1>
+<p>You are a <span class="fw-bold text-capitalize"><%= current_user.role %></span>.</p>
 <p>Where keeping track of your job applications is simple.</p>
+<% if current_user.admin? %>
+    <div class="row"><%= current_user.role_in_database %></div>
+<% end %>
 <% else %>
 <h1>Welcome to TrackMyJobApps.com!</h1>
 <p>Where keeping track of your job applications is simple.</p>
