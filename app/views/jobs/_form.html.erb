@@ -1,0 +1,55 @@
+<%= form_with(model: job) do |form| %>
+	<% if job.errors.any? %>
+		<div style="color: red">
+			<h2><%= pluralize(job.errors.count, "error") %> prohibited this job from being saved:</h2>
+			<ul>
+				<% job.errors.each do |error| %>
+					<li><%= error.full_message %></li>
+				<% end %>
+			</ul>
+		</p>
+	<% end %>
+	<div class="row">
+    <div class="col-6">
+        <p>
+          <%= form.label :company, style: "display: block" %>
+          <%= form.text_field :company, class: "form-control" %>
+        </p>
+        <p>
+          <%= form.label :job_title, style: "display: block" %>
+          <%= form.text_field :job_title, class: "form-control" %>
+        </p>
+        <p>
+          <%= form.label :job_board_link, style: "display: block" %>
+          <%= form.text_field :job_board_link, class: "form-control" %>
+        </p>
+        <p>
+          <%= form.label :application_date %>
+          <%= form.date_field :application_date, class: "form-control" %>
+        </p>
+      </div>
+    <div class="col-6">
+    <p>
+      <%= form.label :job_position_type, style: "display: block" %>
+      <%= form.select :job_position_type, options_for_select(Job.job_position_types.keys.map { |type| [type.to_s.titleize, type] }, selected: @job.job_position_type), {prompt: "Choose the job position type" }, class: "form-select" %>
+    </p>
+    <p>
+      <%= form.label :job_pay_type, style: "display: block" %>
+      <%= form.select :job_pay_type, options_for_select(Job.job_pay_types.keys.map { |type| [type.to_s.titleize, type] }, selected: @job.job_pay_type), {prompt: "Choose the pay type"}, class: "form-select" %>
+    </p>
+    <p>
+      <%= form.label :job_application_status, style: "display: block" %>
+      <%= form.select :job_application_status, options_for_select(Job.job_application_statuses.keys.map { |type| [type.to_s.titleize, type] }, selected: @job.job_application_status), { prompt: "Choose the application status"}, class: "form-select" %>
+    </p>
+      </div>
+      <div class="row">
+        <p>
+            <%= form.label :job_description, style: "display: block" %>
+            <%= form.rich_text_area :job_description, class: "form-control" %>
+          </p>
+      </div>
+	<p class="text-end">
+		<%= form.submit "Submit", class: "btn btn-primary" %>
+	</p>
+  </div>
+<% end %>

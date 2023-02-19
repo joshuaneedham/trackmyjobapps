@@ -1,0 +1,28 @@
+<div id="<%= dom_id job %>">
+	<span class="<%= job_status_badge_class(job.job_application_status) %>">
+		<%= job.formatted_job_application_status %>
+	</span>
+	<%= job.application_date.strftime("%B %e, %Y") %>
+	<%= job.company %>
+	<%= job.job_title %>
+	<%= job.job_board_link %>
+	<%= job.job_description %>
+	<%= job.formatted_job_position_type %>
+	<%= job.job_pay_type %>
+</p>
+</div>
+<div class="card shadow" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title"><%= job.company %></h5>
+    <h6 class="card-subtitle mb-2 text-muted"><span class="<%= job_status_badge_class(job.job_application_status) %>">
+		<%= job.formatted_job_application_status %>
+	</span></h6>
+    <p class="card-text">
+    <p><%= job.job_description %></p>
+    <p><%= job.formatted_job_position_type %></p>
+    <p><%= job.job_pay_type %></p>
+    </p>
+    <a href="#" class="card-link">Card link</a>
+    <a href="#" class="card-link">Another link</a>
+  </div>
+</div>

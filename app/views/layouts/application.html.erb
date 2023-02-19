@@ -1,17 +1,30 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Trackmyjobapps | <%= yield(:title) %></title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+	<head>
+	<title>Trackmyjobapps | <%= yield(:title) %></title>
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<%= csrf_meta_tags %>
+	<%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-    <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
-  </head>
+		<%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+<%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
+</head>
 
-  <body>
-    <%= render "shared/navbar" %>
-    <div class="container"><%= yield %></div>
-  </body>
+	<body>
+	<%= render "shared/navbar" %>
+
+		
+<div class="container">
+	<div class="row">
+		<% if notice.present? %>
+			<div class="alert alert-success"><%= notice %></div>
+		<% end %>
+		<% if alert.present? %>
+			<div class="alert alert-danger"><%= alert %></div>
+		<% end %>
+	</div>
+	<%= yield %>
+</div>
+</body>
+
 </html>

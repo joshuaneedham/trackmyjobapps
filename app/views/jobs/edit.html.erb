@@ -1,0 +1,12 @@
+<h1>Editing job</h1>
+
+<%= render "form", job: @job %>
+
+<br>
+
+<div class="justify-content-evenly">
+  <p>
+    <%= link_to "Show this job", @job, class: "btn btn-primary" %>
+    <%= link_to "Back to jobs", jobs_path, class: "btn btn-secondary" %>
+  </p>
+</div>

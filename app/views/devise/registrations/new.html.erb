@@ -1,0 +1,25 @@
+<div class="d-flex align-items-center justify-content-center min-vh-100">
+	<div class="col-md-4 border shadow text-center p-4">
+		<h2>Sign up</h2>
+		<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+			<%= render "devise/shared/error_messages", resource: resource %>
+			<div class="row">
+				<%= f.label :email %><br />
+				<%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control" %><br />
+				<%= f.label :password %>
+				<% if @minimum_password_length %>
+					<em>(<%= @minimum_password_length %> characters minimum)</em>
+				<% end %><br />
+				<%= f.password_field :password, autocomplete: "new-password", class: "form-control" %><br />
+				<%= f.label :time_zone %>
+				<%= f.time_zone_select :time_zone, ActiveSupport::TimeZone.us_zones, { default: 'Eastern Time (US & Canada)' }, { class: "form-select mb-3" } %>
+				<%= f.label :password_confirmation %><br />
+				<%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control" %>
+			</div>
+			<div class="actions p-2">
+				<%= f.submit "Sign up", {class: "btn btn-primary"} %><br />
+				<%= render "devise/shared/links" %>
+			</div>
+		<% end %>
+	</div>
+</div>
