@@ -12,18 +12,19 @@ class JobsController < ApplicationController
     end
   end
 
-  # Dashboard page
-  def dashboard
-    @jobs = current_user.jobs.order(updated_at: :desc).paginate(page: params[:page], per_page: 5)
-    @time_zone = current_user.time_zone || "Eastern Time (US & Canada)"
+  # # Dashboard page
+  # def dashboard
+  #   @jobs = current_user.jobs.order(updated_at: :desc).paginate(page: params[:page], per_page: 5)
+  #   @time_zone = current_user.time_zone || "Eastern Time (US & Canada)"
 
-    @jobs.each do |job|
-      job.updated_at = job.updated_at.in_time_zone(@time_zone) if job.updated_at.present?
-    end
-  end
+  #   @jobs.each do |job|
+  #     job.updated_at = job.updated_at.in_time_zone(@time_zone) if job.updated_at.present?
+  #   end
+  # end
 
   # GET /jobs/1 or /jobs/1.json
   def show
+    @job = current_user.jobs.find(params[:id])
   end
 
   # GET /jobs/new

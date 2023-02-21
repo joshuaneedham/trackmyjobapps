@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_17_080942) do
+ActiveRecord::Schema[7.0].define(version: 2023_02_21_011128) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -54,11 +54,20 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_17_080942) do
 
   create_table "contacts", force: :cascade do |t|
     t.string "contact_name"
-    t.integer "contact_phone_number"
+    t.string "contact_phone_number"
+    t.string "contact_email"
+    t.integer "contact_type"
     t.bigint "user_id", null: false
+    t.bigint "job_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["job_id"], name: "index_contacts_on_job_id"
     t.index ["user_id"], name: "index_contacts_on_user_id"
+  end
+
+  create_table "contacts_interviews", id: false, force: :cascade do |t|
+    t.bigint "interview_id", null: false
+    t.bigint "contact_id", null: false
   end
 
   create_table "contacts_jobs", id: false, force: :cascade do |t|
@@ -73,12 +82,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_17_080942) do
     t.text "notes"
     t.datetime "interview_date"
     t.integer "interview_type"
-    t.bigint "job_id", null: false
-    t.bigint "contact_id", null: false
     t.bigint "user_id", null: false
+    t.bigint "job_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["contact_id"], name: "index_interviews_on_contact_id"
     t.index ["job_id"], name: "index_interviews_on_job_id"
     t.index ["user_id"], name: "index_interviews_on_user_id"
   end
@@ -128,8 +135,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_17_080942) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "contacts", "jobs"
   add_foreign_key "contacts", "users"
-  add_foreign_key "interviews", "contacts"
   add_foreign_key "interviews", "jobs"
   add_foreign_key "interviews", "users"
   add_foreign_key "jobs", "users"

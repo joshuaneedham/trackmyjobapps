@@ -1,37 +1,28 @@
 <div id="<%= dom_id interview %>">
-  <p>
-    <strong>Title:</strong>
-    <%= interview.title %>
-  </p>
-
-  <p>
-    <strong>Notes:</strong>
-    <%= interview.notes %>
-  </p>
-
-  <p>
-    <strong>Interview date:</strong>
-    <%= interview.interview_date %>
-  </p>
-
-  <p>
-    <strong>Interview type:</strong>
-    <%= interview.interview_type %>
-  </p>
-
-  <p>
-    <strong>Job:</strong>
-    <%= interview.job_id %>
-  </p>
-
-  <p>
-    <strong>Contact:</strong>
-    <%= interview.contact_id %>
-  </p>
-
-  <p>
-    <strong>User:</strong>
-    <%= interview.user_id %>
-  </p>
-
-</div>
+	<p>
+		<strong>Title:</strong>
+		<%= interview.title %>
+	</p>
+	<p>
+		<strong>Notes:</strong>
+		<%= interview.notes %>
+	</p>
+	<p>
+		<strong>Interview date:</strong>
+		<%= interview.interview_date %>
+	</p>
+	<p>
+		<%= interview.interview_type %>
+	</p>
+	<p>
+		<strong>Job:</strong>
+		<%= interview.job.company %>
+		<span class="<%= job_status_badge_class(interview.job.job_application_status) %>">
+			<%= interview.job.formatted_job_application_status %>
+		</p>
+		<p>
+			<strong>Contact:</strong>
+			<%= interview.contact.contact_name %>
+			<%= interview.contact.contact_type %>
+		</p>
+	</div>

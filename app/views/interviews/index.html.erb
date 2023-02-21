@@ -1,14 +1,14 @@
-<p style="color: green"><%= notice %></p>
-
-<h1>Interviews</h1>
-
-<div id="interviews">
-  <% @interviews.each do |interview| %>
-    <%= render interview %>
-    <p>
-      <%= link_to "Show this interview", interview %>
-    </p>
-  <% end %>
+<div class="row">
+	<h1>Interviews</h1>
+	<div id="interviews">
+		<% @interviews.each do |interview| %>
+			<div class="card">
+				<%= render interview %>
+				<p>
+					<%= link_to "Show this interview", interview %>
+				</p>
+			</div>
+		<% end %>
+	</div>
+	<%= link_to "New interview", new_interview_path %>
 </div>
-
-<%= link_to "New interview", new_interview_path %>

@@ -1,0 +1,147 @@
+<h1 class="text-center">Dashboard</h1>
+<div class="row">
+	<div class="border border-2 border-dark-subtle rounded col m-2">
+		<h2 class="text-center">Upcoming Job Interviews</h2>
+		<div class="text-end">
+			<%= link_to "Add New Interview", new_interview_path, class: "badge rounded text-bg-success fs-4 text m-2" %>
+		</div>
+		<div class="interviews table-responsive">
+			<table class="table align-middle table-hover table-bordered">
+				<thead class="table-dark">
+					<tr>
+						<th scope="col">Interview Date</th>
+						<th scope="col">Job</th>
+						<th scope="col">Contact</th>
+						<th scope="col">Take Action</th>
+					</tr>
+				</thead>
+				<tbody>
+					<% if @interviews.present? %>
+						<% @interviews.each do |interview| %>
+							<tr>
+								<td><%= interview.interview_date.in_time_zone(current_user&.time_zone || "Eastern Time (US & Canada)").strftime("%a, %b %e, %Y %I:%M %p %Z") %></td>
+								<td><%= interview.job.company %></td>
+								<td><%= interview.contact.contact_name %></td>
+								<td>
+									<div class="dropdown">
+										<a class="btn btn-secondary btn-sm dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+											Options
+										</a>
+										<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+											<li class="dropdown-item"><%= link_to "Show", interview %></li>
+											<li class="dropdown-item"><%= link_to "Edit", edit_interview_path(interview) %></li>
+										</ul>
+									</div>
+								</td>
+							</tr>
+						<% end %>
+					<% else %>
+						<tr>
+							<td colspan="4" class="text-center">No interviews found</td>
+						</tr>
+					<% end %>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div class="border border-2 border-dark-subtle rounded col m-2">
+		<h2 class="text-center">Recent Contacts</h2>
+		<div class="text-end"><%= link_to "New contact", new_contact_path, class: "badge rounded text-bg-success fs-4 text m-2" %></div>
+		<div class="contacts table-responsive">
+			<table class="table align-middle table-hover table-bordered">
+				<thead class="table-dark">
+					<tr>
+						<th scope="col">Name</th>
+						<th scope="col">Phone Number</th>
+						<th scope="col">Created At</th>
+						<th scope="col">Take Action</th>
+					</tr>
+				</thead>
+				<tbody>
+					<% if @contacts.present? %>
+						<% @contacts.each do |contact| %>
+							<tr>
+								<td><%= contact.contact_name %></td>
+								<td><%= contact.contact_phone_number %></td>
+								<td><%= contact.created_at.in_time_zone(current_user&.time_zone || "Eastern Time (US & Canada)").strftime("%a, %b %e, %Y %I:%M %p %Z") %></td>
+								<td>
+									<div class="dropdown">
+										<a class="btn btn-secondary btn-sm dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+											Options
+										</a>
+										<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+											<li class="dropdown-item"><%= link_to "Show", contact %>
+											</li>
+											<li class="dropdown-item"><%= link_to "Edit", edit_contact_path(contact) %>
+											</li>
+										</ul>
+									</div>
+								</td>
+							</tr>
+						<% end %>
+					<% else %>
+						<tr>
+							<td colspan="4" class="text-center">No contacts found</td>
+						</tr>
+					<% end %>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="border border-2 border-dark-subtle rounded col m-2">
+		<h2 class="text-center">Job Applications</h2>
+		<div class="text-end"><%= link_to "Add New Job", new_job_path, class: "badge rounded text-bg-success fs-4 text m-2" %></div>
+	</ul>
+	<div class="jobs table-responsive">
+		<table class="table align-middle table-hover table-bordered">
+			<thead class="table-dark">
+				<tr>
+					<th scope="col">Application Status</th>
+					<th scope="col">Company Name</th>
+					<th scope="col">Job Title</th>
+					<th scope="col">Interview Count</th>
+					<th scope="col">Last Updated</th>
+					<th scope="col">Take Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% if @jobs.present? %>
+					<% @jobs.each do |job| %>
+						<tr id="<%= dom_id job %>">
+							<td>
+								<span class="<%= job_status_badge_class(job.job_application_status) %>">
+									<%= job.formatted_job_application_status %>
+								</span>
+							</td>
+							<td><%= job.company %></td>
+							<td><%= job.job_title %></td>
+							<td><%= job.interviews.count %></td>
+							<td><%= job.updated_at.in_time_zone(current_user&.time_zone || "Eastern Time (US & Canada)").strftime("%a, %b %e, %Y %I:%M %p %Z") %>
+							</td>
+							<td>
+								<div class="dropdown">
+									<a class="btn btn-secondary btn-sm dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+										Options
+									</a>
+									<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+										<li class="dropdown-item"><%= link_to "Show", job %>
+										</li>
+										<li class="dropdown-item"><%= link_to "Edit", edit_job_path(job) %>
+										</li>
+									</ul>
+								</div>
+							</td>
+						</tr>
+					<% end %>
+				<% else %>
+					<tr>
+						<td colspan="5" class="text-center">No jobs found</td>
+					</tr>
+				<% end %>
+			</tbody>
+		</table>
+	</div>
+</div>
+</div>

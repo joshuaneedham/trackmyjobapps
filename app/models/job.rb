@@ -1,8 +1,9 @@
 class Job < ApplicationRecord
   belongs_to :user
-  has_many :interviews
-  has_many :job_contacts
-  has_many :contacts, through: :job_contacts
+  has_many :interviews, dependent: :nullify
+  has_many :job_contacts, dependent: :nullify
+  has_many :contacts, through: :job_contacts, dependent: :nullify
+
   enum job_position_type: %i[full_time part_time contract contract_to_hire internship volunteer
     other]
   enum job_pay_type: %i[hourly salary]

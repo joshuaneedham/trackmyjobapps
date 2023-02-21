@@ -5,9 +5,9 @@ class CreateInterviews < ActiveRecord::Migration[7.0]
       t.text :notes
       t.datetime :interview_date
       t.integer :interview_type
-      t.references :job, null: false, foreign_key: true
-      t.references :contact, null: false, foreign_key: true
+
       t.references :user, null: false, foreign_key: true
+      t.references :job, null: false, foreign_key: true
 
       t.timestamps
     end

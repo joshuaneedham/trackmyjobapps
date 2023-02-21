@@ -1,9 +1,10 @@
 class ContactsController < ApplicationController
   before_action :set_contact, only: %i[show edit update destroy]
+  before_action :authenticate_user!
 
   # GET /contacts or /contacts.json
   def index
-    @contacts = Contact.all
+    @contacts = current_user.contacts.all.order("created_at DESC")
   end
 
   # GET /contacts/1 or /contacts/1.json
@@ -13,6 +14,8 @@ class ContactsController < ApplicationController
   # GET /contacts/new
   def new
     @contact = Contact.new
+    @jobs = current_user.jobs.order(company: :asc)
+    @interviews = current_user.interviews.order(interview_date: :asc)
   end
 
   # GET /contacts/1/edit
@@ -66,6 +69,6 @@ class ContactsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def contact_params
-    params.require(:contact).permit(:name, :phone_number, :recruiter, job_ids: [], interview_ids: []).merge(user_id: current_user.id)
+    params.require(:contact).permit(:contact_name, :contact_phone_number, :contact_type, job_ids: [], interview_ids: []).merge(user_id: current_user.id)
   end
 end

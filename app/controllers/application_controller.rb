@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+  before_action :authenticate_user!, except: [:index, :about, :contact]
   config.time_zone = "Eastern Time (US & Canada)"
   before_action :set_time_zone, if: :user_signed_in?
 

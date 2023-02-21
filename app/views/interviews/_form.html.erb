@@ -1,52 +1,38 @@
-<%= form_with(model: interview) do |form| %>
-  <% if interview.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(interview.errors.count, "error") %> prohibited this interview from being saved:</h2>
-
-      <ul>
-        <% interview.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div>
-    <%= form.label :title, style: "display: block" %>
-    <%= form.text_field :title %>
-  </div>
-
-  <div>
-    <%= form.label :notes, style: "display: block" %>
-    <%= form.text_area :notes %>
-  </div>
-
-  <div>
-    <%= form.label :interview_date, style: "display: block" %>
-    <%= form.datetime_field :interview_date %>
-  </div>
-
-  <div>
-    <%= form.label :interview_type, style: "display: block" %>
-    <%= form.number_field :interview_type %>
-  </div>
-
-  <div>
-    <%= form.label :job_id, style: "display: block" %>
-    <%= form.text_field :job_id %>
-  </div>
-
-  <div>
-    <%= form.label :contact_id, style: "display: block" %>
-    <%= form.text_field :contact_id %>
-  </div>
-
-  <div>
-    <%= form.label :user_id, style: "display: block" %>
-    <%= form.text_field :user_id %>
-  </div>
-
-  <div>
-    <%= form.submit %>
-  </div>
+<%= form_with(model: interview) do |f| %>
+	<% if interview.errors.any? %>
+		<div style="color: red">
+			<h2><%= pluralize(interview.errors.count, "error") %> prohibited this interview from being saved:</h2>
+			<ul>
+				<% interview.errors.each do |error| %>
+					<li><%= error.full_message %></li>
+				<% end %>
+			</ul>
+		</div>
+	<% end %>
+	<div>
+		<%= f.label :title, style: "display: block" %>
+		<%= f.text_field :title, class: "form-control" %>
+	</div>
+	<div>
+		<%= f.label :notes, style: "display: block" %>
+		<%= f.rich_text_area :notes, class: "form-control" %>
+	</div>
+	<div>
+		<%= f.label :interview_date, style: "display: block" %>
+		<%= f.datetime_field :interview_date %>
+	</div>
+	<div>
+		<%= f.select :interview_type, options_for_select(Interview.interview_types.keys.map { |type| [type.to_s.titleize, type] }, selected: @interview.interview_type), {prompt: "Choose interview format type"}, class: "form-select" %>
+	</div>
+	<div class="form-group">
+		<%= f.label :job_id, "Job" %>
+		<%= f.collection_select :job_id, @jobs, :id, :company, {prompt: "Select a job"}, {class: "form-select"} %>
+	</div>
+	<div class="form-group">
+		<%= f.label :contact_id, "Contact" %>
+		<%= f.collection_select :contact_id, @contacts, :id, :contact_name, {prompt: "Select a contact"}, {class: "form-select"} %>
+	</div>
+	<div>
+		<%= f.submit %>
+	</div>
 <% end %>
